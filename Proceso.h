@@ -1,3 +1,13 @@
+//==============================================================
+// Proyecto: Simulador MLQ (Multilevel Queue)
+// Autor: Andrés Felipe Muñoz Moreno
+// Asignatura: Sistemas Operativos
+//
+// Archivo: Proceso.h
+// Descripción:
+// Define la clase Proceso, encargada de representar un proceso
+// dentro de la simulación del algoritmo MLQ.
+//==============================================================
 #ifndef PROCESO_H
 #define PROCESO_H
 

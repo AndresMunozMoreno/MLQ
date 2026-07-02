@@ -1,3 +1,12 @@
+//==============================================================
+// Proyecto: Simulador MLQ (Multilevel Queue)
+// Autor: Andrés Felipe Muñoz Moreno
+// Asignatura: Sistemas Operativos
+//
+// Archivo: Proceso.cpp
+// Descripción:
+// Implementa los métodos de la clase Proceso.
+//==============================================================
 #include "Proceso.h"
 
 Proceso::Proceso(std::string etiqueta,
@@ -19,9 +28,9 @@ Proceso::Proceso(std::string etiqueta,
 {
 }
 
-//==========================
-// Getters
-//==========================
+//==============================================================
+// Implementación de los métodos de consulta (Getters)
+//==============================================================
 
 std::string Proceso::getEtiqueta() const
 {
