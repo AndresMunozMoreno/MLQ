@@ -1,0 +1,12 @@
+# Ejecutables compilados (el binario final)
+main
+simulador
+a.out
+
+# Archivos de objeto e intermedios de compilación
+*.o
+*.gch
+
+# Archivos temporales del sistema o editores
+.DS_Store
+*.swp
