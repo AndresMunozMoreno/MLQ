@@ -4,10 +4,16 @@
 // Asignatura: Sistemas Operativos
 //
 // Archivo: Proceso.cpp
+//
 // Descripción:
 // Implementa los métodos de la clase Proceso.
 //==============================================================
+
 #include "Proceso.h"
+
+//==============================================================
+// Constructor
+//==============================================================
 
 Proceso::Proceso(std::string etiqueta,
                  int burstTime,
@@ -24,7 +30,7 @@ Proceso::Proceso(std::string etiqueta,
       waitingTime(0),
       turnaroundTime(0),
       responseTime(0),
-      started(false)
+      agregado(false)
 {
 }
 
@@ -82,14 +88,14 @@ int Proceso::getResponseTime() const
     return responseTime;
 }
 
-bool Proceso::getStarted() const
+bool Proceso::getAgregado() const
 {
-    return started;
+    return agregado;
 }
 
-//==========================
-// Setters
-//==========================
+//==============================================================
+// Implementación de los métodos modificadores (Setters)
+//==============================================================
 
 void Proceso::setRemainingTime(int remainingTime)
 {
@@ -116,14 +122,14 @@ void Proceso::setResponseTime(int responseTime)
     this->responseTime = responseTime;
 }
 
-void Proceso::setStarted(bool started)
+void Proceso::setAgregado(bool agregado)
 {
-    this->started = started;
+    this->agregado = agregado;
 }
 
-//==========================
-// Métodos de comportamiento
-//==========================
+//==============================================================
+// Ejecuta un ciclo de CPU sobre el proceso.
+//==============================================================
 
 void Proceso::ejecutarUnCiclo()
 {
@@ -133,7 +139,21 @@ void Proceso::ejecutarUnCiclo()
     }
 }
 
+//==============================================================
+// Indica si el proceso terminó su ejecución.
+//==============================================================
+
 bool Proceso::termino() const
 {
     return remainingTime == 0;
+}
+
+//==============================================================
+// Indica si el proceso ya llegó al sistema de acuerdo con el
+// tiempo actual de la simulación.
+//==============================================================
+
+bool Proceso::haLlegado(int tiempoActual) const
+{
+    return arrivalTime <= tiempoActual;
 }

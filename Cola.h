@@ -6,16 +6,13 @@
 // Archivo: Cola.h
 //
 // Descripción:
-// Define la clase Cola, encargada de administrar los procesos
-// pertenecientes a una cola de planificación.
+// Define la clase Cola, encargada de administrar los índices
+// de los procesos pertenecientes a una cola de planificación.
 //
-// Cada objeto Cola almacena los procesos asignados a una cola
-// específica del algoritmo MLQ y ofrece operaciones básicas
-// para agregar, eliminar y consultar procesos.
-//
-// La política de planificación (RR, SJF, STCF o Priority)
-// NO se implementa en esta clase. Esa responsabilidad le
-// corresponde al PlanificadorMLQ.
+// Cada objeto Cola almacena únicamente los índices de los
+// procesos dentro del vector principal del PlanificadorMLQ.
+// De esta forma existe una única instancia de cada proceso
+// durante toda la simulación.
 //==============================================================
 
 #ifndef COLA_H
@@ -27,8 +24,6 @@
 
 #include <queue>
 
-#include "Proceso.h"
-
 //==============================================================
 // Clase Cola
 //==============================================================
@@ -37,14 +32,13 @@ class Cola
 {
 private:
 
-    // Cola FIFO donde se almacenan los procesos
-    std::queue<Proceso> procesos;
+    // Cola FIFO que almacena los índices de los procesos
+    std::queue<int> procesos;
 
-    // Identificador de la cola (1, 2 o 3)
+    // Identificador de la cola
     int idCola;
 
-    // Quantum asignado a la cola.
-    // Si la cola no utiliza Round Robin este valor será 0.
+    // Quantum de la cola
     int quantum;
 
 public:
@@ -55,7 +49,7 @@ public:
     Cola(int idCola, int quantum);
 
     //==========================================================
-    // Métodos de consulta (Getters)
+    // Getters
     //==========================================================
     int getIdCola() const;
 
@@ -65,19 +59,14 @@ public:
     // Operaciones sobre la cola
     //==========================================================
 
-    // Agrega un proceso al final de la cola
-    void agregarProceso(const Proceso& proceso);
+    void agregarProceso(int indiceProceso);
 
-    // Elimina el proceso que se encuentra al frente
     void eliminarProceso();
 
-    // Retorna el proceso ubicado al frente de la cola
-    Proceso obtenerFrente() const;
+    int obtenerFrente() const;
 
-    // Indica si la cola está vacía
     bool estaVacia() const;
 
-    // Retorna la cantidad de procesos almacenados
     int cantidadProcesos() const;
 };
 

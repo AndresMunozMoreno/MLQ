@@ -8,8 +8,7 @@
 // Descripción:
 // Implementa los métodos de la clase Cola.
 // Esta clase encapsula las operaciones básicas sobre una cola
-// de procesos, permitiendo agregar, eliminar y consultar
-// procesos sin exponer directamente la estructura std::queue.
+// FIFO de índices de procesos.
 //==============================================================
 
 #include "Cola.h"
@@ -17,6 +16,7 @@
 //==============================================================
 // Constructor
 //==============================================================
+
 Cola::Cola(int idCola, int quantum)
     : idCola(idCola),
       quantum(quantum)
@@ -24,7 +24,7 @@ Cola::Cola(int idCola, int quantum)
 }
 
 //==============================================================
-// Implementación de los métodos de consulta (Getters)
+// Getters
 //==============================================================
 
 int Cola::getIdCola() const
@@ -38,16 +38,18 @@ int Cola::getQuantum() const
 }
 
 //==============================================================
-// Agrega un proceso al final de la cola.
+// Agrega un índice de proceso al final de la cola.
 //==============================================================
-void Cola::agregarProceso(const Proceso& proceso)
+
+void Cola::agregarProceso(int indiceProceso)
 {
-    procesos.push(proceso);
+    procesos.push(indiceProceso);
 }
 
 //==============================================================
-// Elimina el proceso ubicado al frente de la cola.
+// Elimina el índice ubicado al frente.
 //==============================================================
+
 void Cola::eliminarProceso()
 {
     if (!procesos.empty())
@@ -57,24 +59,27 @@ void Cola::eliminarProceso()
 }
 
 //==============================================================
-// Retorna el proceso ubicado al frente de la cola.
+// Retorna el índice ubicado al frente.
 //==============================================================
-Proceso Cola::obtenerFrente() const
+
+int Cola::obtenerFrente() const
 {
     return procesos.front();
 }
 
 //==============================================================
-// Indica si la cola contiene procesos.
+// Indica si la cola está vacía.
 //==============================================================
+
 bool Cola::estaVacia() const
 {
     return procesos.empty();
 }
 
 //==============================================================
-// Retorna la cantidad de procesos almacenados.
+// Retorna la cantidad de procesos.
 //==============================================================
+
 int Cola::cantidadProcesos() const
 {
     return procesos.size();
