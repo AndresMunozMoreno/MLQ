@@ -84,3 +84,45 @@ int Cola::cantidadProcesos() const
 {
     return procesos.size();
 }
+
+//==============================================================
+// Retorna una copia de todos los índices, en orden FIFO, sin
+// modificar la cola original.
+//==============================================================
+
+std::vector<int> Cola::obtenerTodos() const
+{
+    std::vector<int> resultado;
+    std::queue<int> copia = procesos;
+
+    while (!copia.empty())
+    {
+        resultado.push_back(copia.front());
+        copia.pop();
+    }
+
+    return resultado;
+}
+
+//==============================================================
+// Elimina un índice específico de la cola, sin importar la
+// posición en la que se encuentre.
+//==============================================================
+
+void Cola::eliminarIndice(int indiceProceso)
+{
+    std::queue<int> nueva;
+
+    while (!procesos.empty())
+    {
+        int actual = procesos.front();
+        procesos.pop();
+
+        if (actual != indiceProceso)
+        {
+            nueva.push(actual);
+        }
+    }
+
+    procesos = nueva;
+}

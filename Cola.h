@@ -23,6 +23,7 @@
 //==============================================================
 
 #include <queue>
+#include <vector>
 
 //==============================================================
 // Clase Cola
@@ -68,6 +69,17 @@ public:
     bool estaVacia() const;
 
     int cantidadProcesos() const;
+
+    // Retorna una copia de todos los índices contenidos en la cola,
+    // en su orden FIFO. Se utiliza para las políticas de la cola 3
+    // (SJF, Priority, STCF) que necesitan inspeccionar a todos los
+    // procesos listos, no solo al que está al frente.
+    std::vector<int> obtenerTodos() const;
+
+    // Elimina un proceso específico de la cola, sin importar la
+    // posición en la que se encuentre. Se utiliza cuando la política
+    // de la cola 3 selecciona un proceso que no está al frente.
+    void eliminarIndice(int indiceProceso);
 };
 
 #endif
