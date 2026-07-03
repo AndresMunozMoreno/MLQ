@@ -1,22 +1,24 @@
 #include <iostream>
+#include <vector>
+
 #include "Proceso.h"
+#include "LectorArchivo.h"
 
 int main()
 {
-    Proceso p("P1", 20, 0, 1, 5);
+    LectorArchivo lector;
 
-    std::cout << "Remaining Time inicial: "
-              << p.getRemainingTime() << std::endl;
+    std::vector<Proceso> procesos =
+        lector.leerArchivo("entradas/mlq001.txt");
 
-    p.ejecutarUnCiclo();
-
-    std::cout << "Despues de un ciclo: "
-              << p.getRemainingTime() << std::endl;
-
-    p.ejecutarUnCiclo();
-
-    std::cout << "Despues de dos ciclos: "
-              << p.getRemainingTime() << std::endl;
+    for (const Proceso& proceso : procesos)
+    {
+        std::cout << proceso.getEtiqueta() << " | "
+                  << proceso.getBurstTime() << " | "
+                  << proceso.getArrivalTime() << " | "
+                  << proceso.getIdCola() << " | "
+                  << proceso.getPriority() << std::endl;
+    }
 
     return 0;
 }

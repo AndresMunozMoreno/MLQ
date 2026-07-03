@@ -18,6 +18,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
 
 //==============================================================
 // Lee un archivo de texto y construye un vector de procesos.
@@ -33,7 +35,7 @@ std::vector<Proceso> LectorArchivo::leerArchivo(std::string nombreArchivo)
     // Verificar que el archivo se abrió correctamente
     if (!archivo.is_open())
     {
-        std::cout << "Error: No fue posible abrir el archivo "
+        std::cout << "Error: No fue posible abrir el archivo: "
                   << nombreArchivo << std::endl;
 
         return procesos;
@@ -46,6 +48,32 @@ std::vector<Proceso> LectorArchivo::leerArchivo(std::string nombreArchivo)
     //==========================================================
     while (std::getline(archivo, linea))
     {
+        // Eliminar espacios al inicio de la línea
+        linea.erase(
+            linea.begin(),
+            std::find_if(
+                linea.begin(),
+                linea.end(),
+                [](unsigned char c)
+                {
+                    return !std::isspace(c);
+                }
+            )
+        );
+
+        // Eliminar espacios al final de la línea
+        linea.erase(
+            std::find_if(
+                linea.rbegin(),
+                linea.rend(),
+                [](unsigned char c)
+                {
+                    return !std::isspace(c);
+                }
+            ).base(),
+            linea.end()
+        );
+
         // Ignorar líneas vacías
         if (linea.empty())
         {
@@ -58,48 +86,38 @@ std::vector<Proceso> LectorArchivo::leerArchivo(std::string nombreArchivo)
             continue;
         }
 
-        // Variables para almacenar los datos de cada proceso
+        // Variables para almacenar la información del proceso
         std::string etiqueta;
         int burstTime;
         int arrivalTime;
         int idCola;
         int priority;
 
-        // Crear un flujo para dividir la línea
+        // Flujo para dividir la línea usando ';'
         std::stringstream ss(linea);
 
         std::string dato;
 
-        //=========================
-        // Etiqueta
-        //=========================
+        // Obtener la etiqueta
         std::getline(ss, etiqueta, ';');
 
-        //=========================
-        // Burst Time
-        //=========================
+        // Obtener el Burst Time
         std::getline(ss, dato, ';');
         burstTime = std::stoi(dato);
 
-        //=========================
-        // Arrival Time
-        //=========================
+        // Obtener el Arrival Time
         std::getline(ss, dato, ';');
         arrivalTime = std::stoi(dato);
 
-        //=========================
-        // ID de la Cola
-        //=========================
+        // Obtener el ID de la Cola
         std::getline(ss, dato, ';');
         idCola = std::stoi(dato);
 
-        //=========================
-        // Prioridad
-        //=========================
+        // Obtener la prioridad
         std::getline(ss, dato);
         priority = std::stoi(dato);
 
-        // Crear el proceso y almacenarlo en el vector
+        // Crear el objeto Proceso y agregarlo al vector
         procesos.push_back(
             Proceso(
                 etiqueta,
@@ -114,6 +132,6 @@ std::vector<Proceso> LectorArchivo::leerArchivo(std::string nombreArchivo)
     // Cerrar el archivo
     archivo.close();
 
-    // Retornar todos los procesos leídos
+    // Retornar el vector con todos los procesos leídos
     return procesos;
 }
