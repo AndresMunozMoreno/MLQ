@@ -1,0 +1,8 @@
+# Archivo de entrada propio - Andres Felipe Munoz Moreno
+# Diseñado para evidenciar la expropiacion dentro de la cola 3 (STCF)
+# etiqueta; burst time (BT); arrival time (AT); Queue (Q); Priority (5>1)
+P1; 2; 0; 1; 5
+P2; 2; 0; 2; 3
+P3; 20; 0; 3; 3
+P4; 3; 8; 3; 5
+P5; 5; 15; 3; 1
